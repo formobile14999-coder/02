@@ -166,27 +166,6 @@ body {
     font-size: 14px;
 }
 
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    font-family: 'Lovelace';
-}
-
-.label {
-    margin-top: 12px;
-    font-size: 14px;
-}
-
-.button {
-    background: #6e6258;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    margin-top: 20px;
-    cursor: pointer;
-}
-
 .map-btn {
     background: black;
     color: white;
@@ -195,135 +174,432 @@ input, select {
     margin-top: 10px;
 }
 
+/* ══════════════════════════════
+   СТИЛИ ФОРМЫ
+══════════════════════════════ */
+.guest-form {
+    margin-top: 16px;
+    padding-bottom: 40px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.radio-group,
+.check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Карточка-выбор */
+.choice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Lovelace', serif;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    user-select: none;
+}
+
+.choice input { display: none; }
+
+.choice:hover { border-color: #6e6258; }
+
+.choice.selected {
+    background: #6e6258;
+    color: white;
+    border-color: #6e6258;
+}
+
+/* Кружок / квадрат-маркер */
+.choice-marker {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    transition: border-color 0.2s;
+}
+
+.choice-marker.square { border-radius: 2px; }
+
+.choice.selected .choice-marker::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    display: block;
+}
+
+.choice.selected .choice-marker.square::after {
+    content: '✓';
+    width: auto;
+    height: auto;
+    background: transparent;
+    border-radius: 0;
+    line-height: 1;
+}
+
+/* Кнопка отправки */
+.submit-btn {
+    background: #6e6258;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin-top: 24px;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    font-family: 'Lovelace', serif;
+    font-size: 15px;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) { background: #5a4e46; }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ══════════════════════════════
+   МОДАЛЬНОЕ ОКНО "СПАСИБО"
+══════════════════════════════ */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal-box {
+    background: white;
+    padding: 50px 36px;
+    text-align: center;
+    max-width: 340px;
+    width: 88%;
+    animation: fadeUp 0.35s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-icon { font-size: 2.2rem; margin-bottom: 10px; }
+
+.modal-box h2 {
+    font-family: 'Ceremonious';
+    font-size: 32px;
+    margin-bottom: 12px;
+    font-weight: normal;
+}
+
+.modal-box p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    color: #666;
+}
+
+.modal-close {
+    background: transparent;
+    border: 1px solid #6e6258;
+    color: #6e6258;
+    padding: 11px 32px;
+    font-family: 'Lovelace', serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.modal-close:hover {
+    background: #6e6258;
+    color: white;
+}
 </style>
 </head>
 
 <body>
 <div class="container">
 
-<div class="main-title">Wedding day</div>
+    <div class="main-title">Wedding day</div>
 
-<div class="hero">
-<img src="wedd.png" class="hero-bg">
+    <div class="hero">
+        <img src="wedd.png" class="hero-bg">
+        <div class="polaroid fade">
+            <img src="photo3.jpg">
+            <div class="caption">Диана и Илья</div>
+        </div>
+    </div>
 
-<div class="polaroid fade">
-<img src="photo3.jpg">
-<div class="caption">Диана и Илья</div>
+    <div class="date">26.06.2026</div>
+
+    <div class="timer">
+        <div class="timer-grid">
+            <div><span id="d"></span><p>дней</p></div>
+            <div><span id="h"></span><p>часов</p></div>
+            <div><span id="m"></span><p>минут</p></div>
+            <div><span id="s"></span><p>секунд</p></div>
+        </div>
+    </div>
+
+    <div class="section-title">Дорогие гости</div>
+
+    <div class="text fade">
+        Мы будем счастливы разделить с вами радость неповторимого для нас дня - дня нашей свадьбы!<br>
+        Приглашаем вас присоединиться к нашему празднику и украсить его своим присутствием 26-го июня!
+    </div>
+
+    <div class="section-title">Место проведения</div>
+
+    <div class="polaroid fade">
+        <img src="photo4.jpg">
+    </div>
+
+    <div class="text">
+        г. Владивосток, ул. Лазурная 39, ст 1<br>
+        Терраса номер 3/купол
+    </div>
+
+    <a href="https://yandex.ru/maps/?text=Владивосток Лазурная 39" target="_blank">
+        <div class="map-btn">Открыть в Яндекс Картах</div>
+    </a>
+
+    <div class="section-title">Программа</div>
+
+    <div class="timeline">
+        <span>17:00</span> Сбор гостей
+        <span>18:00</span> Церемония
+        <span>18:30</span> Банкет
+    </div>
+
+    <div class="polaroid fade">
+        <img src="photo5.jpg">
+    </div>
+
+    <div class="section-title">Пожелания</div>
+
+    <div class="wish-box">
+        Мы не будем оригинальными, но будем практичными. Лучший для нас подарок — это ваша денежная инвестиция в нашу молодую семью.<br><br>
+        Просим не отягощать себя выбором цветов, наилучший подарок для нас — это ваше присутствие и тёплые слова.<br><br>
+        Будем благодарны за сохранение уютного семейного вечера и отсутствие криков "Горько"
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         АНКЕТА ГОСТЯ
+         iframe Google Forms заменён на нативную форму
+         Данные уходят в Google Apps Script → Sheets
+    ════════════════════════════════════════════ -->
+    <div class="section-title">Анкета гостя</div>
+
+    <div class="text visible">
+        Пожалуйста, подтвердите своё присутствие
+    </div>
+
+    <div class="guest-form">
+
+        <!-- Вы придёте? -->
+        <span class="form-label">Вы придёте?</span>
+        <div class="radio-group" id="attending-group">
+            <label class="choice" onclick="selectRadio(this, 'attending-group')">
+                <input type="radio" name="attending" value="Да">
+                <span class="choice-marker"></span>
+                Да
+            </label>
+            <label class="choice" onclick="selectRadio(this, 'attending-group')">
+                <input type="radio" name="attending" value="Нет">
+                <span class="choice-marker"></span>
+                Нет
+            </label>
+        </div>
+
+        <!-- Сколько вас будет? -->
+        <span class="form-label">Сколько вас будет?</span>
+        <div class="radio-group" id="count-group">
+            <label class="choice" onclick="selectRadio(this, 'count-group')">
+                <input type="radio" name="count" value="1">
+                <span class="choice-marker"></span>
+                1
+            </label>
+            <label class="choice" onclick="selectRadio(this, 'count-group')">
+                <input type="radio" name="count" value="2">
+                <span class="choice-marker"></span>
+                2
+            </label>
+            <label class="choice" onclick="selectRadio(this, 'count-group')">
+                <input type="radio" name="count" value="3">
+                <span class="choice-marker"></span>
+                3
+            </label>
+            <label class="choice" onclick="selectRadio(this, 'count-group')">
+                <input type="radio" name="count" value="4">
+                <span class="choice-marker"></span>
+                4
+            </label>
+        </div>
+
+        <!-- Выбор алкоголя -->
+        <span class="form-label">Выбор алкоголя</span>
+        <div class="check-group" id="alcohol-group">
+            <label class="choice" onclick="toggleCheck(this)">
+                <input type="checkbox" name="alcohol" value="Вино белое">
+                <span class="choice-marker square"></span>
+                Вино белое
+            </label>
+            <label class="choice" onclick="toggleCheck(this)">
+                <input type="checkbox" name="alcohol" value="Вино красное">
+                <span class="choice-marker square"></span>
+                Вино красное
+            </label>
+            <label class="choice" onclick="toggleCheck(this)">
+                <input type="checkbox" name="alcohol" value="Шампанское">
+                <span class="choice-marker square"></span>
+                Шампанское
+            </label>
+            <label class="choice" onclick="toggleCheck(this)">
+                <input type="checkbox" name="alcohol" value="Водка">
+                <span class="choice-marker square"></span>
+                Водка
+            </label>
+        </div>
+
+        <button class="submit-btn" id="submit-btn" onclick="submitForm()">Отправить</button>
+
+    </div>
+    <!-- ════════════════════════════════════════════ -->
+
+</div><!-- /.container -->
+
+
+<!-- МОДАЛКА "СПАСИБО" -->
+<div class="modal-overlay" id="thanks-modal">
+    <div class="modal-box">
+        <div class="modal-icon">💛</div>
+        <h2>Спасибо</h2>
+        <p>Ваш ответ успешно отправлен.<br>Ждём вас на празднике!</p>
+        <button class="modal-close" onclick="closeModal()">Закрыть</button>
+    </div>
 </div>
-</div>
 
-<div class="date">26.06.2026</div>
-
-<div class="timer">
-<div class="timer-grid">
-<div><span id="d"></span><p>дней</p></div>
-<div><span id="h"></span><p>часов</p></div>
-<div><span id="m"></span><p>минут</p></div>
-<div><span id="s"></span><p>секунд</p></div>
-</div>
-</div>
-
-<div class="section-title">Дорогие гости</div>
-
-<div class="text fade">
-Мы будем счастливы разделить с вами радость неповторимого для нас дня - дня нашей свадьбы!<br>
-Приглашаем вас присоединиться к нашему празднику и украсить его своим присутствием 26-го июня!
-</div>
-
-<div class="section-title">Место проведения</div>
-
-<div class="polaroid fade">
-<img src="photo4.jpg">
-</div>
-
-<div class="text">
-г. Владивосток, ул. Лазурная 39, ст 1<br>
-Терраса номер 3/купол
-</div>
-
-<a href="https://yandex.ru/maps/?text=Владивосток Лазурная 39" target="_blank">
-<div class="map-btn">Открыть в Яндекс Картах</div>
-</a>
-
-<div class="section-title">Программа</div>
-
-<div class="timeline">
-<span>17:00</span> Сбор гостей
-<span>18:00</span> Церемония
-<span>18:30</span> Банкет
-</div>
-
-<div class="polaroid fade">
-<img src="photo5.jpg">
-</div>
-
-<div class="section-title">Пожелания</div>
-
-<div class="wish-box">
-Мы не будем оригинальными, но будем практичными. Лучший для нас подарок — это ваша денежная инвестиция в нашу молодую семью.<br><br>
-Просим не отягощать себя выбором цветов, наилучший подарок для нас — это ваше присутствие и тёплые слова.<br><br>
-Будем благодарны за сохранение уютного семейного вечера и отсутствие криков "Горько"
-</div>
-
-<div class="section-title">Анкета гостя</div>
-
-<div class="text">
-Пожалуйста, подтвердите своё присутствие
-</div>
-
-<iframe
-  src="https://docs.google.com/forms/d/e/1FAIpQLSdAUxGrgdkkC-m7uIQFGVF1oj2qI_bQ8Y2YH_V1oLHU4h_Aww/viewform?embedded=true"
-  width="100%"
-  height="1072"
-  frameborder="0"
-  marginheight="0"
-  marginwidth="0"
-  style="display: block; border: none;"
->Загрузка…</iframe>
-
-</div>
 
 <script>
-const date = new Date("2026-06-26T17:00:00");
+/* ── Таймер обратного отсчёта ─────────────────────── */
+const weddingDate = new Date("2026-06-26T17:00:00");
 
-setInterval(()=>{
-let now = new Date();
-let diff = date - now;
+setInterval(() => {
+    const diff = weddingDate - new Date();
+    document.getElementById('d').innerHTML = Math.floor(diff / (1000*60*60*24));
+    document.getElementById('h').innerHTML = Math.floor(diff / (1000*60*60) % 24);
+    document.getElementById('m').innerHTML = Math.floor(diff / (1000*60) % 60);
+    document.getElementById('s').innerHTML = Math.floor(diff / 1000 % 60);
+}, 1000);
 
-d.innerHTML = Math.floor(diff/(1000*60*60*24));
-h.innerHTML = Math.floor(diff/(1000*60*60)%24);
-m.innerHTML = Math.floor(diff/(1000*60)%60);
-s.innerHTML = Math.floor(diff/1000%60);
-},1000);
-
+/* ── Fade-in при скролле ──────────────────────────── */
 const fades = document.querySelectorAll('.fade');
-window.addEventListener('scroll', ()=>{
-fades.forEach(el=>{
-if(el.getBoundingClientRect().top < window.innerHeight-50){
-el.classList.add('visible');
-}
-});
+window.addEventListener('scroll', () => {
+    fades.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 50) {
+            el.classList.add('visible');
+        }
+    });
 });
 
+/* ── Анимация букв ────────────────────────────────── */
 function animateText(selector, delay = 40) {
-document.querySelectorAll(selector).forEach(el => {
-const text = el.innerText;
-el.innerHTML = "";
-
-[...text].forEach((letter, i) => {
-const span = document.createElement("span");
-span.className = "letter";
-span.style.animationDelay = (i * delay) + "ms";
-span.innerText = letter === " " ? "\u00A0" : letter;
-el.appendChild(span);
-});
-});
+    document.querySelectorAll(selector).forEach(el => {
+        const text = el.innerText;
+        el.innerHTML = "";
+        [...text].forEach((letter, i) => {
+            const span = document.createElement("span");
+            span.className = "letter";
+            span.style.animationDelay = (i * delay) + "ms";
+            span.innerText = letter === " " ? "\u00A0" : letter;
+            el.appendChild(span);
+        });
+    });
 }
 
 animateText(".main-title", 60);
 animateText(".section-title", 30);
 
+/* ── Радио-выбор ──────────────────────────────────── */
+function selectRadio(clickedLabel, groupId) {
+    // Снять выделение со всех в группе
+    document.querySelectorAll('#' + groupId + ' .choice').forEach(l => {
+        l.classList.remove('selected');
+        l.querySelector('input').checked = false;
+    });
+    // Выделить нажатый
+    clickedLabel.classList.add('selected');
+    clickedLabel.querySelector('input').checked = true;
+}
 
+/* ── Чекбоксы ────────────────────────────────────── */
+function toggleCheck(clickedLabel) {
+    // onclick срабатывает ДО смены .checked, поэтому инвертируем вручную
+    const cb = clickedLabel.querySelector('input');
+    const next = !cb.checked;
+    cb.checked = next;
+    clickedLabel.classList.toggle('selected', next);
+}
+
+/* ── Отправка → Google Apps Script ───────────────── */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyCsT-BmSUDnvQ3h6tuho-em7BExomASvkSRuO4yMm5WSz-H0FTu2oZAhXTXNjQKCI7/exec";
+
+async function submitForm() {
+    const attending = document.querySelector('input[name="attending"]:checked')?.value;
+    const count     = document.querySelector('input[name="count"]:checked')?.value;
+    const alcohol   = Array.from(document.querySelectorAll('input[name="alcohol"]:checked'))
+                          .map(el => el.value)
+                          .join(", ");
+
+    if (!attending || !count) {
+        alert("Пожалуйста, выберите ответы на все вопросы.");
+        return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = "Отправляем…";
+
+    try {
+        // mode: "no-cors" обязателен для Apps Script — ответ не читаем, но данные доходят
+        await fetch(SCRIPT_URL, {
+            method:  "POST",
+            mode:    "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body:    JSON.stringify({ attending, count, alcohol })
+        });
+
+        document.getElementById('thanks-modal').classList.add('active');
+
+    } catch (err) {
+        alert("Ошибка отправки. Пожалуйста, попробуйте ещё раз.");
+        btn.disabled = false;
+        btn.textContent = "Отправить";
+    }
+}
+
+/* ── Закрыть модалку ─────────────────────────────── */
+function closeModal() {
+    document.getElementById('thanks-modal').classList.remove('active');
+}
 </script>
 
 </body>
