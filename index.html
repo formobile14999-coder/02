@@ -194,58 +194,7 @@ input, select {
     text-align: center;
     margin-top: 10px;
 }
-/* THANK YOU MODAL */
-.thankyou {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.4s;
-}
 
-.thankyou.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.thankyou-box {
-  background: white;
-  padding: 30px 20px;
-  text-align: center;
-  border-radius: 16px;
-  width: 80%;
-  max-width: 320px;
-  transform: translateY(20px);
-  transition: 0.4s;
-}
-
-.thankyou.active .thankyou-box {
-  transform: translateY(0);
-}
-
-.thankyou h2 {
-  font-family: 'Ceremonious';
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.thankyou p {
-  font-size: 14px;
-}
-
-.thankyou button {
-  margin-top: 15px;
-  padding: 10px 15px;
-  border: none;
-  background: #6e6258;
-  color: white;
-  cursor: pointer;
-}
 </style>
 </head>
 
@@ -322,41 +271,15 @@ input, select {
 Пожалуйста, подтвердите своё присутствие
 </div>
 
-<form id="form">
-<input name="name" placeholder="Ваше имя" required>
-
-<div class="label">Вы придёте?</div>
-<select name="attend">
-<option>Да</option>
-<option>Нет</option>
-</select>
-
-<div class="label">Сколько вас будет?</div>
-<select name="count">
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-</select>
-
-<div class="label">Выбор алкоголя</div>
-<select name="alcohol">
-<option>Вино белое</option>
-<option>Вино красное</option>
-<option>Шампанское</option>
-<option>Водка</option>
-</select>
-
-<div class="button" onclick="send()">Отправить</div>
-</form>
-
-<div class="thankyou" id="thankyou">
-  <div class="thankyou-box">
-    <h2>Спасибо 💛</h2>
-    <p>Ваш ответ успешно отправлен.<br>Ждём вас на празднике!</p>
-    <button onclick="closeThanks()">Закрыть</button>
-  </div>
-</div>
+<iframe
+  src="https://docs.google.com/forms/d/e/1FAIpQLSdAUxGrgdkkC-m7uIQFGVF1oj2qI_bQ8Y2YH_V1oLHU4h_Aww/viewform?embedded=true"
+  width="100%"
+  height="1072"
+  frameborder="0"
+  marginheight="0"
+  marginwidth="0"
+  style="display: block; border: none;"
+>Загрузка…</iframe>
 
 </div>
 
@@ -400,25 +323,7 @@ el.appendChild(span);
 animateText(".main-title", 60);
 animateText(".section-title", 30);
 
-function send(){
-fetch("https://api.sheetbest.com/sheets/ed7b0793-aeb0-4fad-a436-05ecba4b99af",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-name:form.name.value,
-attend:form.attend.value,
-count:form.count.value,
-alcohol:form.alcohol.value
-})
-}).then(()=>{
-document.getElementById('thankyou').classList.add('active');
-form.reset();
-});
-}
 
-function closeThanks(){
-    document.getElementById('thankyou').classList.remove('active');
-}
 </script>
 
 </body>
