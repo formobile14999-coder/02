@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@font-face {
+    font-family: 'Lovelace';
+    src: url('Lovelace.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Ceremonious';
+    src: url('Ceremonious.woff2') format('woff2');
+}
+
+body {
+    margin: 0;
+    background: #f6f5f3;
+    font-family: 'Lovelace', serif;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 390px;
+    background: white;
+    padding: 25px 18px;
+}
+
+.section-title {
+    font-family: 'Ceremonious';
+    font-size: 36px;
+    text-align: center;
+    margin: 30px 0 10px;
+}
+
+.main-title {
+    font-family: 'Ceremonious';
+    font-size: 42px;
+    text-align: center;
+}
+
+.letter {
+    opacity: 0;
+    display: inline-block;
+    transform: translateY(10px);
+    animation: letterFade 0.6s forwards;
+}
+
+@keyframes letterFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130%;
+    opacity: 0.3;
+    z-index: 0;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translate(-50%, -50%) translateY(0); }
+    50% { transform: translate(-50%, -50%) translateY(-10px); }
+    100% { transform: translate(-50%, -50%) translateY(0); }
+}
+
+.polaroid {
+    position: relative;
+    z-index: 1;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    width: 90%;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: 0.8s;
+}
+
+.polaroid.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.polaroid img {
+    width: 100%;
+}
+
+.caption {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.date {
+    text-align: center;
+    font-size: 26px;
+}
+
+.timer {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.timer-grid {
+    display: flex;
+    justify-content: space-between;
+}
+
+.timer-grid div {
+    width: 23%;
+    background: #f3f1ee;
+    padding: 10px;
+}
+
+.timer-grid span {
+    font-size: 22px;
+}
+
+.text {
+    font-family: 'Lovelace', serif;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.8s;
+}
+
+.text.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline {
+    text-align: center;
+}
+
+.timeline span {
+    display: block;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.wish-box {
+    background: #f3f1ee;
+    padding: 15px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    font-family: 'Lovelace';
+}
+
+.label {
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.button {
+    background: #6e6258;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.map-btn {
+    background: black;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    margin-top: 10px;
+}
+/* THANK YOU MODAL */
+.thankyou {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+}
+
+.thankyou.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.thankyou-box {
+  background: white;
+  padding: 30px 20px;
+  text-align: center;
+  border-radius: 16px;
+  width: 80%;
+  max-width: 320px;
+  transform: translateY(20px);
+  transition: 0.4s;
+}
+
+.thankyou.active .thankyou-box {
+  transform: translateY(0);
+}
+
+.thankyou h2 {
+  font-family: 'Ceremonious';
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.thankyou p {
+  font-size: 14px;
+}
+
+.thankyou button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  border: none;
+  background: #6e6258;
+  color: white;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="main-title">Wedding day</div>
+
+<div class="hero">
+<img src="wedd.png" class="hero-bg">
+
+<div class="polaroid fade">
+<img src="photo3.jpg">
+<div class="caption">Диана и Илья</div>
+</div>
+</div>
+
+<div class="date">26.06.2026</div>
+
+<div class="timer">
+<div class="timer-grid">
+<div><span id="d"></span><p>дней</p></div>
+<div><span id="h"></span><p>часов</p></div>
+<div><span id="m"></span><p>минут</p></div>
+<div><span id="s"></span><p>секунд</p></div>
+</div>
+</div>
+
+<div class="section-title">Дорогие гости</div>
+
+<div class="text fade">
+Мы будем счастливы разделить с вами радость неповторимого для нас дня - дня нашей свадьбы!<br>
+Приглашаем вас присоединиться к нашему празднику и украсить его своим присутствием 26-го июня!
+</div>
+
+<div class="section-title">Место проведения</div>
+
+<div class="polaroid fade">
+<img src="photo4.jpg">
+</div>
+
+<div class="text">
+г. Владивосток, ул. Лазурная 39, ст 1<br>
+Терраса номер 3/купол
+</div>
+
+<a href="https://yandex.ru/maps/?text=Владивосток Лазурная 39" target="_blank">
+<div class="map-btn">Открыть в Яндекс Картах</div>
+</a>
+
+<div class="section-title">Программа</div>
+
+<div class="timeline">
+<span>17:00</span> Сбор гостей
+<span>18:00</span> Церемония
+<span>18:30</span> Банкет
+</div>
+
+<div class="polaroid fade">
+<img src="photo5.jpg">
+</div>
+
+<div class="section-title">Пожелания</div>
+
+<div class="wish-box">
+Мы не будем оригинальными, но будем практичными. Лучший для нас подарок — это ваша денежная инвестиция в нашу молодую семью.<br><br>
+Просим не отягощать себя выбором цветов, наилучший подарок для нас — это ваше присутствие и тёплые слова.<br><br>
+Будем благодарны за сохранение уютного семейного вечера и отсутствие криков "Горько"
+</div>
+
+<div class="section-title">Анкета гостя</div>
+
+<div class="text">
+Пожалуйста, подтвердите своё присутствие
+</div>
+
+<form id="form">
+<input name="name" placeholder="Ваше имя" required>
+
+<div class="label">Вы придёте?</div>
+<select name="attend">
+<option>Да</option>
+<option>Нет</option>
+</select>
+
+<div class="label">Сколько вас будет?</div>
+<select name="count">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+</select>
+
+<div class="label">Выбор алкоголя</div>
+<select name="alcohol">
+<option>Вино белое</option>
+<option>Вино красное</option>
+<option>Шампанское</option>
+<option>Водка</option>
+</select>
+
+<div class="button" onclick="send()">Отправить</div>
+</form>
+
+<div class="thankyou" id="thankyou">
+  <div class="thankyou-box">
+    <h2>Спасибо 💛</h2>
+    <p>Ваш ответ успешно отправлен.<br>Ждём вас на празднике!</p>
+    <button onclick="closeThanks()">Закрыть</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+const date = new Date("2026-06-26T17:00:00");
+
+setInterval(()=>{
+let now = new Date();
+let diff = date - now;
+
+d.innerHTML = Math.floor(diff/(1000*60*60*24));
+h.innerHTML = Math.floor(diff/(1000*60*60)%24);
+m.innerHTML = Math.floor(diff/(1000*60)%60);
+s.innerHTML = Math.floor(diff/1000%60);
+},1000);
+
+const fades = document.querySelectorAll('.fade');
+window.addEventListener('scroll', ()=>{
+fades.forEach(el=>{
+if(el.getBoundingClientRect().top < window.innerHeight-50){
+el.classList.add('visible');
+}
+});
+});
+
+function animateText(selector, delay = 40) {
+document.querySelectorAll(selector).forEach(el => {
+const text = el.innerText;
+el.innerHTML = "";
+
+[...text].forEach((letter, i) => {
+const span = document.createElement("span");
+span.className = "letter";
+span.style.animationDelay = (i * delay) + "ms";
+span.innerText = letter === " " ? "\u00A0" : letter;
+el.appendChild(span);
+});
+});
+}
+
+animateText(".main-title", 60);
+animateText(".section-title", 30);
+
+function send(){
+fetch("https://api.sheetbest.com/sheets/ed7b0793-aeb0-4fad-a436-05ecba4b99af",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+name:form.name.value,
+attend:form.attend.value,
+count:form.count.value,
+alcohol:form.alcohol.value
+})
+}).then(()=>{
+document.getElementById('thankyou').classList.add('active');
+form.reset();
+});
+}
+
+function closeThanks(){
+    document.getElementById('thankyou').classList.remove('active');
+}
+</script>
+
+</body>
+</html>
