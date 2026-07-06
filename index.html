@@ -2,409 +2,1496 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1">
+
+<title>Gender Party | Виктория и Тимофей</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
 
 <style>
-@font-face {
-    font-family: 'CaviarDreams';
-    src: url('Lovelace.woff2') format('woff2');
+
+/* ==== ЛОКАЛЬНЫЕ ШРИФТЫ ====
+   Положите файлы .woff в папку fonts/ рядом с index.html,
+   с точно такими именами файлов, как указано ниже:
+   fonts/AYearWithoutRain.woff
+   fonts/Noteworthy-Light_0.woff
+   fonts/InterTight-Regular.woff
+*/
+
+@font-face{
+ font-family:'A Year Without Rain';
+ src:url("fonts/AYearWithoutRain.woff") format("woff");
+ font-weight:normal;
+ font-style:normal;
+ font-display:swap;
 }
 
-@font-face {
-    font-family: 'Lovelace';
-    src: url('Lovelace.woff2') format('woff2');
+@font-face{
+ font-family:'Noteworthy Light';
+ src:url("fonts/Noteworthy-Light_0.woff") format("woff");
+ font-weight:normal;
+ font-style:normal;
+ font-display:swap;
 }
 
-@font-face {
-    font-family: 'Ceremonious';
-    src: url('Ceremonious.woff2') format('woff2');
+@font-face{
+ font-family:'Inter Tight Regular';
+ src:url("fonts/InterTight-Regular.woff") format("woff");
+ font-weight:normal;
+ font-style:normal;
+ font-display:swap;
 }
 
-@font-face {
-    font-family: 'CaviarDreams';
-    src: url('CaviarDreams.woff2') format('woff2');
+:root{
+ --bg:#fbfaf8;
+ --beige:#dcccb8;
+ --beige-dark:#9d8772;
+ --milk:#f7f3ee;
+ --text:#8a7765;
+ --line:#e8dfd5;
+ --shadow:0 12px 30px rgba(180,160,140,.12);
 }
 
-body {
-    margin: 0;
-    background: #f6f5f3;
-    font-family: 'CaviarDreams', sans-serif;
-    display: flex;
-    justify-content: center;
+*{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
 }
 
-.container {
-    width: 390px;
-    background: white;
-    padding: 25px 18px;
+html{
+ scroll-behavior:smooth;
 }
 
-.section-title {
-    font-family: 'Ceremonious';
-    font-size: 36px;
-    text-align: center;
-    margin: 30px 0 10px;
+body{
+ background:#eef3f6;
+ font-family:'Inter Tight Regular',sans-serif;
+ font-weight:400;
+ color:var(--text);
+ overflow-x:hidden;
+ opacity:0;
+ animation:pageFade 1.6s forwards;
 }
 
-.main-title {
-    font-family: 'Ceremonious';
-    font-size: 42px;
-    text-align: center;
+@keyframes pageFade{
+ to{
+  opacity:1;
+ }
 }
 
-.letter {
-    opacity: 0;
-    display: inline-block;
-    transform: translateY(10px);
-    animation: letterFade 0.6s forwards;
+.wrapper{
+ max-width:430px;
+ margin:auto;
+ background:var(--bg);
+ min-height:100vh;
+ position:relative;
+ overflow:hidden;
+ box-shadow:0 0 50px rgba(0,0,0,.08);
 }
 
-@keyframes letterFade {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.side-line-left,
+.side-line-right{
+ position:fixed;
+ top:0;
+ bottom:0;
+ width:14px;
+ background:
+ radial-gradient(circle,#dfeaf1 1px,transparent 1px);
+ background-size:8px 8px;
+ opacity:.8;
+ z-index:1;
 }
 
-.hero {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.side-line-left{
+ left:calc(50% - 230px);
 }
 
-.hero-bg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 130%;
-    opacity: 0.3;
-    z-index: 0;
-    animation: float 6s ease-in-out infinite;
+.side-line-right{
+ right:calc(50% - 230px);
 }
 
-@keyframes float {
-    0% { transform: translate(-50%, -50%) translateY(0); }
-    50% { transform: translate(-50%, -50%) translateY(-10px); }
-    100% { transform: translate(-50%, -50%) translateY(0); }
+.section{
+ padding:60px 28px;
+ text-align:center;
+ position:relative;
+
+ opacity:0;
+ transform:translateY(50px);
+ transition:opacity 1.2s cubic-bezier(.22,1,.36,1),
+            transform 1.2s cubic-bezier(.22,1,.36,1);
 }
 
-.polaroid {
-    position: relative;
-    z-index: 1;
-    background: white;
-    padding: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    margin: 20px auto;
-    width: 90%;
-    transform: translateY(30px);
-    opacity: 0;
-    transition: 0.8s;
+.section.visible{
+ opacity:1;
+ transform:none;
 }
 
-.polaroid.visible {
-    transform: translateY(0);
-    opacity: 1;
+/* Уменьшенные промежутки между конкретными блоками */
+.block2{ padding-bottom:51px; } /* -15% между блоками 2 и 3 */
+.block3{ padding-top:51px; }
+
+.block5{ padding-bottom:51px; } /* -15% между блоками 5 и 6 */
+.block6{ padding-top:51px; }
+
+.block7{ padding-bottom:51px; } /* -15% между блоками 7 и 8 */
+.block8{ padding-top:51px; }
+
+.block9{ padding-bottom:48px; } /* -20% между блоками 9 и 10 */
+.block10{ padding-top:48px; }
+
+.title{
+ font-family:'Noteworthy Light',cursive;
+ font-size:36px;
+ letter-spacing:1px;
+ margin-bottom:22px;
+ color:#8d7b69;
 }
 
-.polaroid img {
-    width: 100%;
+.hero-title{
+ font-family:'A Year Without Rain',cursive;
 }
 
-.caption {
-    text-align: center;
-    font-size: 24px;
-    margin-top: 10px;
-    font-family: 'CaviarDreams', sans-serif;
+.letters span{
+ opacity:0;
+ display:inline-block;
+ transform:translateY(18px);
+ animation:letterAppear .6s forwards;
 }
 
-.date {
-    text-align: center;
-    font-size: 26px;
-    font-family: 'CaviarDreams', sans-serif;
+@keyframes letterAppear{
+ to{
+  opacity:1;
+  transform:none;
+ }
 }
 
-.timer {
-    text-align: center;
-    margin: 20px 0;
+.subtitle{
+ font-size:18px;
+ line-height:1.9;
+ color:#9f8e7e;
 }
 
-.timer-grid {
-    display: flex;
-    justify-content: space-between;
+.date-big{
+ font-family:'A Year Without Rain',cursive;
+ font-size:74px;
+ line-height:.95;
+ color:#d6c0ab;
+ margin:30px 0;
 }
 
-.timer-grid div {
-    width: 23%;
-    background: #f3f1ee;
-    padding: 10px;
-    font-family: 'CaviarDreams', sans-serif;
+.hero-wrap{
+ position:relative;
+ width:88%;
+ max-width:330px;
+ margin:auto;
 }
 
-.timer-grid span {
-    font-size: 22px;
-    font-family: 'CaviarDreams', sans-serif;
+.hero-elephant{
+ width:100%;
+ display:block;
+ animation:floatElephant 5s ease-in-out infinite;
+ position:relative;
+ z-index:2;
 }
 
-.text {
-    font-family: 'CaviarDreams', sans-serif;
-    text-align: center;
-    font-size: 15px;
-    line-height: 1.7;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: 0.8s;
+@keyframes floatElephant{
+ 0%,100%{
+  transform:translateY(0px);
+ }
+ 50%{
+  transform:translateY(-8px);
+ }
 }
 
-.text.visible {
-    opacity: 1;
-    transform: translateY(0);
+.hero-balloon{
+ position:absolute;
+ transform-origin:top center;
+ z-index:1;
 }
 
-.timeline {
-    text-align: center;
+.hero-balloon.b2{
+ width:12%;
+ top:-20%;
+ left:44%;
+ animation:balloonSway 4s ease-in-out infinite .4s;
 }
 
-.timeline span {
-    display: block;
-    font-size: 20px;
-    margin-top: 10px;
-    font-family: 'CaviarDreams', sans-serif;
+@keyframes balloonSway{
+ 0%,100%{
+  transform:translateY(0) rotate(-4deg);
+ }
+ 50%{
+  transform:translateY(-10px) rotate(4deg);
+ }
 }
 
-.wish-box {
-    font-family: 'CaviarDreams', sans-serif;
-    background: #f3f1ee;
-    padding: 15px;
-    margin-top: 15px;
-    text-align: center;
-    font-size: 14px;
+.hero-word{
+ position:absolute;
+ font-size:32px;
+ letter-spacing:1px;
+ color:#8d7b69;
+ z-index:3;
+
+ opacity:0;
+ animation:heroWordIn .8s ease forwards;
 }
 
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    font-family: 'CaviarDreams';
+.hero-word-boy{
+ top:2%;
+ left:0;
+ animation-delay:.3s;
 }
 
-.label {
-    margin-top: 12px;
-    font-size: 14px;
-    font-family: 'CaviarDreams', sans-serif;
+.hero-word-girl{
+ bottom:4%;
+ right:0;
+ animation-delay:.9s;
 }
 
-.button {
-    background: #6e6258;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    margin-top: 20px;
-    cursor: pointer;
-    font-family: 'CaviarDreams', sans-serif;
+@keyframes heroWordIn{
+ from{
+  opacity:0;
+  transform:translateY(10px);
+ }
+ to{
+  opacity:1;
+  transform:translateY(0);
+ }
 }
 
-.map-btn {
-    background: black;
-    color: white;
-    padding: 12px;
-    text-align: center;
-    margin-top: 10px;
-    font-family: 'CaviarDreams', sans-serif;
-}
-/* THANK YOU MODAL */
-.thankyou {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.4s;
+.deco-question{
+ position:absolute;
+ opacity:.4;
+ pointer-events:none;
+ z-index:0;
 }
 
-.thankyou.active {
-  opacity: 1;
-  pointer-events: all;
+/* ====================================================================
+   ВОПРОСИКИ (photo9.png) — ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ
+   Чтобы сдвинуть конкретный вопросик — меняйте значения ниже:
+   - top / bottom  -> смещение по вертикали (больше значение = дальше от края)
+   - left / right  -> смещение по горизонтали
+   - transform:rotate(Nдeg) -> угол поворота картинки
+   - width -> размер картинки
+   Используйте ТОЛЬКО одну пару: либо top, либо bottom (не обе сразу),
+   и либо left, либо right (не обе сразу) — иначе будет конфликт.
+   ==================================================================== */
+
+.dq-tr{
+ top:18px;
+ right:14px;
+ width:150px;
+ transform:rotate(10deg);
 }
 
-.thankyou-box {
-  background: white;
-  padding: 30px 20px;
-  text-align: center;
-  border-radius: 16px;
-  width: 80%;
-  max-width: 320px;
-  transform: translateY(20px);
-  transition: 0.4s;
+.dq-bl{
+ bottom:18px;
+ left:14px;
+ width:125px;
+ transform:rotate(-12deg);
 }
 
-.thankyou.active .thankyou-box {
-  transform: translateY(0);
+.dq-tl{
+ top:14px;
+ left:18px;
+ width:138px;
+ transform:rotate(-8deg);
 }
 
-.thankyou h2 {
-  font-family: 'Ceremonious';
-  font-size: 28px;
-  margin-bottom: 10px;
+.dq-br{
+ bottom:22px;
+ right:18px;
+ width:163px;
+ transform:rotate(14deg);
 }
 
-.thankyou p {
-  font-size: 14px;
-  font-family: 'CaviarDreams', sans-serif;
+.dq-mid{
+ top:50%;
+ right:10px;
+ width:113px;
+ transform:translateY(-50%) rotate(6deg);
 }
 
-.thankyou button {
-  margin-top: 15px;
-  padding: 10px 15px;
-  border: none;
-  background: #6e6258;
-  color: white;
-  cursor: pointer;
-  font-family: 'CaviarDreams', sans-serif;
+.bunting{
+ width:100%;
+ margin:35px auto;
+ display:block;
+ animation:bunting 4s ease-in-out infinite;
+ transform-origin:center top;
 }
+
+@keyframes bunting{
+ 0%,100%{
+  transform:rotate(-1deg);
+ }
+ 50%{
+  transform:rotate(1deg);
+ }
+}
+
+.location-card{
+ margin-top:28px;
+ background:white;
+ border-radius:28px;
+ padding:28px;
+ box-shadow:var(--shadow);
+}
+
+.location-title{
+ font-family:'Forum',serif;
+ font-size:30px;
+ margin-bottom:18px;
+}
+
+.location-address{
+ line-height:1.9;
+ font-size:18px;
+}
+
+.map-btn{
+ margin-top:26px;
+ display:inline-block;
+ text-decoration:none;
+ background:#d8c3af;
+ color:white;
+ padding:14px 32px;
+ border-radius:999px;
+ font-size:16px;
+ letter-spacing:2px;
+ transition:.35s;
+}
+
+.map-btn:hover{
+ transform:translateY(-3px);
+}
+
+.program-image{
+ width:100%;
+ margin-top:30px;
+ filter:drop-shadow(0 12px 18px rgba(0,0,0,.06));
+}
+
+.program-list{
+ margin-top:30px;
+ text-align:left;
+
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+}
+
+.program-item{
+ position:relative;
+
+ width:100%;
+ max-width:230px;
+ min-height:130px;
+
+ background:url('photo10.png') center / contain no-repeat;
+
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+
+ padding:8px 34px;
+}
+
+.program-arrow{
+ width:22px;
+ height:22px;
+ margin:2px 0;
+ color:#cdb8a4;
+}
+
+.program-time{
+ font-family:'Noteworthy Light',cursive;
+ font-size:24px;
+ color:#b3957d;
+}
+
+.program-text{
+ font-family:'Inter Tight Regular',sans-serif;
+ font-size:11px;
+ line-height:1.4;
+ text-align:center;
+}
+
+.fade-divider{
+ width:120px;
+ height:1px;
+ background:linear-gradient(
+ to right,
+ transparent,
+ #d8c9bb,
+ transparent
+);
+
+ margin:32px auto;
+}
+
 </style>
 </head>
 
 <body>
-<div class="container">
 
-<div class="main-title">Wedding day</div>
+<div class="wrapper">
 
-<div class="hero">
-<img src="wedd.png" class="hero-bg">
+<!-- БЛОК 1 -->
 
-<div class="polaroid fade">
-<img src="photo3.jpg">
-<div class="caption">Диана и Илья</div>
-</div>
-</div>
+<section class="section hero">
 
-<div class="date">26.06.2026</div>
+<div class="hero-wrap">
 
-<div class="timer">
-<div class="timer-grid">
-<div><span id="d"></span><p>дней</p></div>
-<div><span id="h"></span><p>часов</p></div>
-<div><span id="m"></span><p>минут</p></div>
-<div><span id="s"></span><p>секунд</p></div>
-</div>
+<svg class="hero-balloon b2" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+<line x1="30" y1="58" x2="30" y2="88" stroke="#cdb8a4" stroke-width="1.5"/>
+<ellipse cx="30" cy="32" rx="26" ry="32" fill="#f7f3ee"/>
+</svg>
+
+<span class="hero-word hero-word-boy hero-title">Boy</span><span class="hero-word hero-word-girl hero-title">Girl</span>
+
+<img src="photo4.png"
+     class="hero-elephant"
+     alt="Слоник">
+
 </div>
 
-<div class="section-title">Дорогие гости</div>
+</section>
 
-<div class="text fade" style="font-family: 'CaviarDreams', sans-serif;">
-Мы будем счастливы разделить с вами радость неповторимого для нас дня - дня нашей свадьбы!<br>
-Приглашаем вас присоединиться к нашему празднику и украсить его своим присутствием 26-го июня!
+
+<!-- БЛОК 2 -->
+
+<section class="section block2">
+
+<img src="photo9.png" class="deco-question dq-tr" alt="">
+
+<h2 class="title">
+ДОРОГИЕ РОДНЫЕ<br>
+И ДРУЗЬЯ!
+</h2>
+
+<p class="subtitle">
+Приглашаем вас на вечеринку,<br>
+где мы вместе узнаем пол<br>
+нашего малыша.
+</p>
+
+<div class="date-big">
+31.07<br>
+2026
 </div>
 
-<div class="section-title">Место проведения</div>
+<div class="fade-divider"></div>
 
-<div class="polaroid fade">
-<img src="photo4.jpg">
+<p class="subtitle">
+Этот день станет одним из самых<br>
+важных и трогательных событий<br>
+в нашей семье.
+</p>
+
+</section>
+
+
+<!-- БЛОК 3 -->
+
+<section class="section block3">
+
+<img src="photo9.png" class="deco-question dq-bl" alt="">
+
+<h2 class="title">
+МЕСТО ПРОВЕДЕНИЯ
+</h2>
+
+<div class="location-card">
+
+<div class="location-title">
+Ресторан<br>
+Акфес-Сейо
 </div>
 
-<div class="text" style="font-family: 'Times New Roman', serif; opacity: 1; transform: none;">
-г. Владивосток, ул.Лазурная 39, ст 1 Терраса номер 3/купол
+<div class="location-address">
+
+Пр. 100-летия Владивостока, 103
+
+<br><br>
+
+Ждём вас в 15:00
+
 </div>
 
-<a href="https://yandex.ru/maps/?text=Владивосток Лазурная 39" target="_blank">
-<div class="map-btn">Открыть в Яндекс Картах</div>
+<a class="map-btn"
+href="https://yandex.ru/maps/?text=%D0%9F%D1%80.%20100-%D0%BB%D0%B5%D1%82%D0%B8%D1%8F%20%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D0%BA%D0%B0%2C%20103"
+target="_blank">
+
+ЯНДЕКС КАРТЫ
+
 </a>
 
-<div class="section-title">Программа</div>
-
-<div class="timeline" style="font-family: 'CaviarDreams', sans-serif;">
-<span>17:00</span> Сбор гостей
-<span>18:00</span> Церемония
-<span>18:30</span> Банкет
 </div>
 
-<div class="polaroid fade">
-<img src="photo5.jpg">
+</section>
+
+
+<!-- БЛОК 4 -->
+
+<section class="section">
+
+<h2 class="title">
+ПРОГРАММА ДНЯ
+</h2>
+
+<img
+src="photo5.png"
+class="program-image"
+alt="Программа">
+
+<div class="program-list">
+
+<div class="program-item">
+<div class="program-time">14:40</div>
+<div class="program-text">
+Сбор гостей
+</div>
 </div>
 
-<div class="section-title">Пожелания</div>
+<svg class="program-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 3V20M12 20L6 14M12 20L18 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
 
-<div class="wish-box">
-Мы не будем оригинальными, но будем практичными. Лучший для нас подарок — это ваша денежная инвестиция в нашу молодую семью.<br><br>
-Просим не отягощать себя выбором цветов, наилучший подарок для нас — это ваше присутствие и тёплые слова.<br><br>
-Будем благодарны за сохранение уютного семейного вечера и отсутствие криков "Горько"
+<div class="program-item">
+<div class="program-time">15:00</div>
+<div class="program-text">
+Welcome-зона<br>
+до 15:40
+</div>
 </div>
 
-<div class="section-title">Анкета гостя</div>
+<svg class="program-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 3V20M12 20L6 14M12 20L18 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
 
-<div class="text" style="font-family: 'CaviarDreams', sans-serif; opacity: 1; transform: none;">
-Мы очень стараемся сделать праздник незабываемым, поэтому будем рады, если Вы подтвердите свое присутствие и заполните анкету ниже, чтобы мы учли все детали
+<div class="program-item">
+<div class="program-time">16:00</div>
+<div class="program-text">
+Начало программы
+</div>
 </div>
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSff7mgdkTtstQ0nd6XLJcpqra7I8oQ9OoZz-J-QIEd0Qb9aIQ/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0" style="margin-top: 10px;">Загрузка…</iframe>
+<svg class="program-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 3V20M12 20L6 14M12 20L18 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+<div class="program-item">
+<div class="program-time">16:40</div>
+<div class="program-text">
+Перерыв
+</div>
+</div>
+
+<svg class="program-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 3V20M12 20L6 14M12 20L18 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+<div class="program-item">
+<div class="program-time">17:00</div>
+<div class="program-text">
+Узнаём пол малыша
+</div>
+</div>
 
 </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- БЛОК 5 | DRESS CODE -->
+<!-- ===================================================== -->
+
+<section class="section block5">
+
+<h2 class="title">
+DRESS CODE
+</h2>
+
+<p class="subtitle">
+Если вы думаете, что у нас будет девочка —
+добавьте в образ нежные розовые оттенки.
+</p>
+
+<div class="dress-wrapper">
+
+<div class="dress-card">
+
+<img
+src="girl.png"
+class="dress-icon-img"
+alt="Девочка">
+
+</div>
+
+<div class="heart-divider">
+♡
+</div>
+
+<div class="dress-card">
+
+<img
+src="boy.png"
+class="dress-icon-img"
+alt="Мальчик">
+
+</div>
+
+</div>
+
+<p class="subtitle" style="margin-top:20px">
+Если вы думаете, что мальчик — что-то голубое
+</p>
+
+<p class="subtitle" style="margin-top:28px">
+Но главное —
+приходите с хорошим настроением!
+</p>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- БЛОК 6 | ПОДСКАЗКИ -->
+<!-- ===================================================== -->
+
+<section class="section block6">
+
+<img src="photo9.png" class="deco-question dq-tl" alt="">
+
+<img
+src="photo7.png"
+class="bunting"
+alt="Флажки">
+
+<h2 class="title">
+ПОДСКАЗКИ
+</h2>
+
+<p class="subtitle">
+
+Мы очень ждём вас в этот день!
+
+<br><br>
+
+А если вы захотите сделать нам подарок,
+будем рады вашему вкладу
+в семейный бюджет.
+
+<br><br>
+
+Этому подарку мы точно найдём применение!
+
+</p>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- БЛОК 7 | ТАЙМЕР -->
+<!-- ===================================================== -->
+
+<section class="section block7">
+
+<img src="photo9.png" class="deco-question dq-br" alt="">
+
+<h2 class="title">
+ДО ВСТРЕЧИ<br>
+ОСТАЛОСЬ
+</h2>
+
+<div id="countdown">
+
+<div class="flip-group">
+
+<div class="flip-box" id="flipbox-days">
+<span id="days">00</span>
+</div>
+
+<div class="flip-label">
+дней
+</div>
+
+</div>
+
+
+<div class="flip-group">
+
+<div class="flip-box" id="flipbox-hours">
+<span id="hours">00</span>
+</div>
+
+<div class="flip-label">
+часов
+</div>
+
+</div>
+
+
+<div class="flip-group">
+
+<div class="flip-box" id="flipbox-minutes">
+<span id="minutes">00</span>
+</div>
+
+<div class="flip-label">
+минут
+</div>
+
+</div>
+
+
+<div class="flip-group">
+
+<div class="flip-box">
+<span id="seconds">00</span>
+</div>
+
+<div class="flip-label">
+секунд
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- БЛОК 8 | RSVP -->
+<!-- ===================================================== -->
+
+<section class="section block8">
+
+<img
+src="photo7.png"
+class="bunting"
+alt="Флажки">
+
+</section>
+
+
+
+<style>
+
+.dress-wrapper{
+margin-top:40px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+gap:22px;
+}
+
+.dress-card{
+width:130px;
+background:#fff;
+border-radius:28px;
+padding:24px 14px;
+
+box-shadow:var(--shadow);
+}
+
+.dress-icon-img{
+width:100%;
+aspect-ratio:1/1;
+object-fit:cover;
+border-radius:20px;
+}
+
+.heart-divider{
+font-size:30px;
+color:#cdb8a4;
+font-family:'Forum',serif;
+}
+
+#countdown{
+
+display:flex;
+justify-content:center;
+gap:7px;
+flex-wrap:nowrap;
+
+margin-top:40px;
+
+}
+
+.flip-group{
+text-align:center;
+}
+
+.flip-box{
+
+perspective:300px;
+
+width:53px;
+height:60px;
+
+background:#fff;
+
+border-radius:17px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+box-shadow:var(--shadow);
+
+font-family:'Forum',serif;
+font-size:29px;
+
+color:#8f7964;
+
+transform-style:preserve-3d;
+
+}
+
+.flip-box.flip-change{
+animation:flipDigit .6s ease;
+}
+
+@keyframes flipDigit{
+
+0%{
+transform:rotateX(0deg);
+opacity:1;
+}
+
+45%{
+transform:rotateX(-90deg);
+opacity:.5;
+}
+
+55%{
+transform:rotateX(-90deg);
+opacity:.5;
+}
+
+100%{
+transform:rotateX(0deg);
+opacity:1;
+}
+
+}
+
+.flip-label{
+
+margin-top:5px;
+
+font-size:8px;
+letter-spacing:.5px;
+text-transform:uppercase;
+
+color:#b09b86;
+
+}
+
+</style>
+
+<!-- ===================================================== -->
+<!-- БЛОК 9 | RSVP -->
+<!-- ===================================================== -->
+
+<section class="section rsvp-section block9">
+
+<div class="rsvp-overlay"></div>
+
+<p class="subtitle" style="margin-bottom:30px">
+Будем рады видеть вас<br>
+на нашем празднике
+</p>
+
+<p class="subtitle" style="margin-bottom:30px">
+Пожалуйста, подтвердите своё присутствие<br>
+до <b>20.07.2026</b>
+</p>
+
+<form id="rsvpForm" class="rsvp-form">
+
+<label>Ваше имя *</label>
+<input
+type="text"
+name="name"
+required
+placeholder="Введите имя">
+
+<label>Вы придёте? *</label>
+
+<div class="radio-group">
+
+<label class="radio-card">
+<input
+type="radio"
+name="attendance"
+value="Да"
+required>
+
+<span>Да, с удовольствием!</span>
+</label>
+
+<label class="radio-card">
+<input
+type="radio"
+name="attendance"
+value="Нет">
+
+<span>К сожалению, не смогу</span>
+</label>
+
+</div>
+
+
+<label>Кто будет? *</label>
+
+<div class="radio-group">
+
+<label class="radio-card">
+<input
+type="radio"
+name="guess"
+value="Мальчик"
+required>
+
+<span>💙 Мальчик</span>
+</label>
+
+<label class="radio-card">
+<input
+type="radio"
+name="guess"
+value="Девочка">
+
+<span>🩷 Девочка</span>
+</label>
+
+</div>
+
+
+<label>Комментарий (по желанию)</label>
+
+<textarea
+name="comment"
+rows="4"
+placeholder="Ваш комментарий..."></textarea>
+
+<button
+type="submit"
+class="submit-btn">
+
+ОТПРАВИТЬ
+
+</button>
+
+</form>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- БЛОК 10 -->
+<!-- ===================================================== -->
+
+<section class="section block10">
+
+<img src="photo9.png" class="deco-question dq-mid" alt="">
+
+<div class="fade-divider"></div>
+
+<p class="subtitle">
+С любовью ждём встречи с вами
+</p>
+
+<h2 class="title"
+style="margin-top:20px">
+
+Виктория и Тимофей
+
+</h2>
+
+<img
+src="photo6.png"
+class="sleep-elephant"
+alt="Спящий слоник">
+
+</section>
+
+</div>
+
+
+
+<!-- ===================================================== -->
+<!-- МОДАЛЬНОЕ ОКНО -->
+<!-- ===================================================== -->
+
+<div id="successModal">
+
+<div class="success-card">
+
+<h3>
+Спасибо!
+</h3>
+
+<p>
+Ваш ответ отправлен.
+</p>
+
+<button onclick="closeModal()">
+Закрыть
+</button>
+
+</div>
+
+</div>
+
+
+
+<style>
+
+.rsvp-section{
+
+background:
+linear-gradient(
+rgba(248,244,239,.95),
+rgba(248,244,239,.95)
+);
+
+}
+
+.rsvp-form{
+display:flex;
+flex-direction:column;
+gap:14px;
+
+text-align:left;
+}
+
+.rsvp-form label{
+
+font-size:17px;
+color:#8f7d6d;
+
+margin-top:10px;
+}
+
+.rsvp-form input[type=text],
+.rsvp-form textarea{
+
+width:100%;
+
+padding:16px 18px;
+
+border:1px solid #e8ddd2;
+
+border-radius:18px;
+
+background:white;
+
+font-size:17px;
+
+font-family:'Inter Tight Regular',sans-serif;
+
+outline:none;
+
+}
+
+.radio-group{
+
+display:flex;
+flex-direction:column;
+gap:10px;
+
+}
+
+.radio-card{
+
+display:flex;
+align-items:center;
+
+gap:12px;
+
+padding:14px 18px;
+
+background:white;
+
+border-radius:18px;
+
+box-shadow:var(--shadow);
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.radio-card input[type="radio"]{
+
+position:absolute;
+opacity:0;
+width:0;
+height:0;
+margin:0;
+
+}
+
+.radio-card:has(input:checked){
+
+background:var(--milk);
+box-shadow:inset 0 0 0 2px var(--beige-dark);
+
+}
+
+.submit-btn{
+
+margin-top:20px;
+
+border:none;
+
+padding:18px;
+
+border-radius:999px;
+
+background:#cdb59d;
+
+color:white;
+
+letter-spacing:3px;
+
+font-size:16px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.submit-btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+.sleep-elephant{
+
+width:85%;
+
+max-width:300px;
+
+margin-top:20px;
+
+animation:sleepFloat 6s ease-in-out infinite;
+
+}
+
+@keyframes sleepFloat{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-8px);
+}
+
+}
+
+#successModal{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.35);
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+opacity:0;
+visibility:hidden;
+
+transition:.35s;
+
+z-index:999;
+
+}
+
+#successModal.active{
+
+opacity:1;
+visibility:visible;
+
+}
+
+.success-card{
+
+width:300px;
+
+background:#fff;
+
+padding:40px 30px;
+
+border-radius:30px;
+
+text-align:center;
+
+box-shadow:0 20px 50px rgba(0,0,0,.18);
+
+}
+
+.success-card h3{
+
+font-family:'Forum',serif;
+
+font-size:36px;
+
+margin-bottom:12px;
+
+color:#8d7a68;
+
+}
+
+.success-card p{
+
+margin-bottom:20px;
+
+}
+
+.success-card button{
+
+border:none;
+
+padding:12px 30px;
+
+border-radius:999px;
+
+background:#ccb49c;
+
+color:#fff;
+
+cursor:pointer;
+
+}
+
+</style>
+
+
 
 <script>
-const date = new Date("2026-06-26T17:00:00");
 
-setInterval(()=>{
-let now = new Date();
-let diff = date - now;
+/* ===========================
+REVEAL
+=========================== */
 
-d.innerHTML = Math.floor(diff/(1000*60*60*24));
-h.innerHTML = Math.floor(diff/(1000*60*60)%24);
-m.innerHTML = Math.floor(diff/(1000*60)%60);
-s.innerHTML = Math.floor(diff/1000%60);
-},1000);
+const observer =
+new IntersectionObserver(entries=>{
 
-const fades = document.querySelectorAll('.fade');
-window.addEventListener('scroll', ()=>{
-fades.forEach(el=>{
-if(el.getBoundingClientRect().top < window.innerHeight-50){
-el.classList.add('visible');
-}
-});
-});
+entries.forEach(entry=>{
 
-function animateText(selector, delay = 40) {
-document.querySelectorAll(selector).forEach(el => {
-const text = el.innerText;
-el.innerHTML = "";
+if(entry.isIntersecting){
 
-[...text].forEach((letter, i) => {
-const span = document.createElement("span");
-span.className = "letter";
-span.style.animationDelay = (i * delay) + "ms";
-span.innerText = letter === " " ? "\u00A0" : letter;
-el.appendChild(span);
-});
-});
+entry.target.classList.add("visible");
+
 }
 
-animateText(".main-title", 60);
-animateText(".section-title", 30);
+});
 
-function send(){
-fetch("https://api.sheetbest.com/sheets/ed7b0793-aeb0-4fad-a436-05ecba4b99af",{
+},{threshold:.15});
+
+document
+.querySelectorAll(".section")
+.forEach(el=>observer.observe(el));
+
+
+/* ===========================
+ТАЙМЕР
+=========================== */
+
+const targetDate =
+new Date("2026-07-31T15:00:00");
+
+let prevDays = null;
+let prevHours = null;
+let prevMinutes = null;
+
+function playFlip(elId){
+
+const el = document.getElementById(elId);
+
+if(!el) return;
+
+el.classList.remove("flip-change");
+
+void el.offsetWidth;
+
+el.classList.add("flip-change");
+
+}
+
+function updateTimer(){
+
+const now = new Date();
+
+const diff =
+targetDate - now;
+
+if(diff<=0){
+
+document.getElementById("days").innerText = "00";
+document.getElementById("hours").innerText = "00";
+document.getElementById("minutes").innerText = "00";
+document.getElementById("seconds").innerText = "00";
+
+return;
+
+}
+
+const days =
+Math.floor(diff/1000/60/60/24);
+
+const hours =
+Math.floor(
+(diff/1000/60/60)%24
+);
+
+const minutes =
+Math.floor(
+(diff/1000/60)%60
+);
+
+const seconds =
+Math.floor(
+(diff/1000)%60
+);
+
+if(prevDays !== null && days !== prevDays){
+playFlip("flipbox-days");
+}
+
+if(prevHours !== null && hours !== prevHours){
+playFlip("flipbox-hours");
+}
+
+if(prevMinutes !== null && minutes !== prevMinutes){
+playFlip("flipbox-minutes");
+}
+
+prevDays = days;
+prevHours = hours;
+prevMinutes = minutes;
+
+document.getElementById("days")
+.innerText =
+String(days).padStart(2,"0");
+
+document.getElementById("hours")
+.innerText =
+String(hours).padStart(2,"0");
+
+document.getElementById("minutes")
+.innerText =
+String(minutes).padStart(2,"0");
+
+document.getElementById("seconds")
+.innerText =
+String(seconds).padStart(2,"0");
+
+}
+
+setInterval(updateTimer,1000);
+
+updateTimer();
+
+
+/* ===========================
+GOOGLE SCRIPT
+=========================== */
+
+/*
+ВСТАВИТЬ СЮДА URL
+ВЕБ-ПРИЛОЖЕНИЯ
+*/
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzirNUsnHrCZKTknr4MBbOCEm1V-pF4C41EXx0CSBlcgZeCMoJE3xSWlEnSXr9ShbIQ/exec";
+
+
+document
+.getElementById("rsvpForm")
+.addEventListener("submit",
+
+async function(e){
+
+e.preventDefault();
+
+const form =
+new FormData(this);
+
+const data = {
+
+name:
+form.get("name"),
+
+attendance:
+form.get("attendance"),
+
+guess:
+form.get("guess"),
+
+comment:
+form.get("comment")
+
+};
+
+try{
+
+await fetch(
+SCRIPT_URL,
+{
 method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-name:form.name.value,
-attend:form.attend.value,
-count:form.count.value,
-alcohol:form.alcohol.value
-})
-}).then(()=>{
-document.getElementById('thankyou').classList.add('active');
-form.reset();
-});
+mode:"no-cors",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:JSON.stringify(data)
+}
+);
+
+document
+.getElementById("successModal")
+.classList.add("active");
+
+this.reset();
+
+}
+catch(err){
+
+alert(
+"Ошибка отправки"
+);
+
 }
 
-function closeThanks(){
-    document.getElementById('thankyou').classList.remove('active');
+});
+
+
+function closeModal(){
+
+document
+.getElementById("successModal")
+.classList.remove("active");
+
 }
+
 </script>
 
 </body>
